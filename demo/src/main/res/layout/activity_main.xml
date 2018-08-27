@@ -1,19 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    android:orientation="vertical">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+    <Button
+        android:id="@+id/btn1"
+        style="@style/AppButton"
+        android:text="@string/btn1"/>
 
-</android.support.constraint.ConstraintLayout>
+    <Button
+        android:id="@+id/btn2"
+        style="@style/AppButton"
+        android:text="@string/btn2"/>
+
+    <Button
+        android:id="@+id/btn3"
+        style="@style/AppButton"
+        android:text="@string/btn3"/>
+
+    <Button
+        android:id="@+id/btn4"
+        style="@style/AppButton"
+        android:text="@string/btn4"/>
+
+    <Button
+        android:id="@+id/btn5"
+        style="@style/AppButton"
+        android:text="@string/btn5"/>
+
+</LinearLayout>

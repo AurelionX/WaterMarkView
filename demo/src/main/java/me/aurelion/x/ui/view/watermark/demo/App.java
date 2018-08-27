@@ -2,7 +2,6 @@ package me.aurelion.x.ui.view.watermark.demo;
 
 import android.app.Application;
 
-import me.aurelion.x.ui.view.watermark.WaterMarkInfo;
 import me.aurelion.x.ui.view.watermark.WaterMarkManager;
 
 /**
@@ -15,7 +14,7 @@ public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        WaterMarkManager.setInfo(WaterMarkInfo.create(getApplicationContext()).generate());
+        WaterMarkManager.init(this);
         WaterMarkManager.setText("哈哈哈哈哈哈哈");
     }
 }

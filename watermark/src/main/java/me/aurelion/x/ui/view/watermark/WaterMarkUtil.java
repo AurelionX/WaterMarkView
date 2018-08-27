@@ -1,6 +1,5 @@
 package me.aurelion.x.ui.view.watermark;
 
-import android.content.Context;
 import android.util.TypedValue;
 
 /**
@@ -10,9 +9,9 @@ import android.util.TypedValue;
  */
 class WaterMarkUtil {
 
-    static int dp2px(Context context, float dpVal) {
+    static int dp2px(float dpVal) {
         return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
-                dpVal, context.getResources().getDisplayMetrics());
+                dpVal, WaterMarkManager.APPLICATION.getResources().getDisplayMetrics());
     }
 
 }

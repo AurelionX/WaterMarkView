@@ -1,20 +1,23 @@
-package me.aurelion.x.ui.view.watermark.demo;
+package me.aurelion.x.ui.view.watermark.demo.base;
 
-import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.ViewGroup;
 
 import me.aurelion.x.ui.view.watermark.WaterMarkManager;
 import me.aurelion.x.ui.view.watermark.WaterMarkView;
 
-public class MainActivity extends AppCompatActivity {
+/**
+ * @author Leon (wshk729@163.com)
+ * @date 2018/8/27
+ * <p>
+ */
+public abstract class BaseActivity extends AppCompatActivity {
 
-    private WaterMarkView mWmv;
+    protected WaterMarkView mWmv;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+    public void setContentView(int layoutResID) {
+        super.setContentView(layoutResID);
         mWmv = WaterMarkManager.getView(this);
         ((ViewGroup) findViewById(android.R.id.content)).addView(mWmv);
     }
