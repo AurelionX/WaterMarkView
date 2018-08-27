@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="WaterMarkView">
+        <attr name="degree" format="integer|reference"/>
+        <attr name="textColor" format="color|reference"/>
+        <attr name="textSize" format="dimension|reference"/>
+        <attr name="textBold" format="boolean"/>
+        <attr name="dx" format="dimension|reference"/>
+        <attr name="dy" format="dimension|reference"/>
+    </declare-styleable>
+</resources>
