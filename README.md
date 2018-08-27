@@ -47,6 +47,7 @@
 ```
 
 WaterMarkView常用方法
+
 | 方法名 | 含义 | 备注 |
 | :--- | :--- | :--- |
 |setText(String text)|设置水印文字内容||
@@ -110,6 +111,7 @@ public class App extends Application {
 ```
 
 WaterMarkManager常用**静态**方法
+
 | 方法名 | 含义 | 备注 |
 | :--- | :--- | :--- |
 |setInfo(WaterMarkInfo info)|设置水印全局配置信息||
