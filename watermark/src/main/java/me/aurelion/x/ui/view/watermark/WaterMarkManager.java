@@ -2,7 +2,6 @@ package me.aurelion.x.ui.view.watermark;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.Context;
 import android.view.LayoutInflater;
 
 import java.util.ArrayList;
@@ -15,31 +14,9 @@ import java.util.List;
  */
 public class WaterMarkManager {
 
-    static Context APPLICATION = null;
     static WaterMarkInfo INFO = null;
     static String CONTENT = "";
     static List<WaterMarkView> LIST = new ArrayList<>();
-
-    /**
-     * 初始化水印管理器
-     *
-     * @param context 上下文
-     */
-    public static void init(Context context) {
-        APPLICATION = context.getApplicationContext();
-    }
-
-    /**
-     * 判断是否初始化
-     */
-    private static void assertInitialized() {
-        if (APPLICATION == null) {
-            throw new UnsupportedOperationException("You haven't initialized WaterMarkView yet!");
-        }
-        if (INFO == null) {
-            INFO = WaterMarkInfo.create().generate();
-        }
-    }
 
     /**
      * 设置水印全局配置信息
@@ -57,8 +34,16 @@ public class WaterMarkManager {
      */
     @SuppressLint("InflateParams")
     public static WaterMarkView getView(Activity activity) {
-        assertInitialized();
         return (WaterMarkView) LayoutInflater.from(activity).inflate(R.layout.view_water_mark, null);
+    }
+
+    /**
+     * WaterMarkInfo初始化判断
+     */
+    private static void assertInitialized() {
+        if (INFO == null) {
+            INFO = WaterMarkInfo.create().generate();
+        }
     }
 
     /**
@@ -81,7 +66,7 @@ public class WaterMarkManager {
     /**
      * 同步设置全部水印倾斜角度
      *
-     * @param degrees 倾斜角度
+     * @param degrees 倾斜角度(默认:-30)
      */
     public static void setDegrees(int degrees) {
         assertInitialized();
@@ -98,7 +83,7 @@ public class WaterMarkManager {
     /**
      * 同步设置全部水印字体颜色
      *
-     * @param textColor 字体颜色
+     * @param textColor 字体颜色(默认:#33000000)
      */
     public static void setTextColor(int textColor) {
         assertInitialized();
@@ -113,9 +98,9 @@ public class WaterMarkManager {
     }
 
     /**
-     * 同步设置全部水印字体大小
+     * 同步设置全部水印字体大小（单位：px）
      *
-     * @param textSize 字体大小
+     * @param textSize 字体大小(默认:42px)
      */
     public static void setTextSize(int textSize) {
         assertInitialized();
@@ -132,7 +117,7 @@ public class WaterMarkManager {
     /**
      * 同步设置全部水印字体是否粗体
      *
-     * @param textBold 是否粗体
+     * @param textBold 是否粗体(默认:false)
      */
     public static void setTextBold(boolean textBold) {
         assertInitialized();
@@ -147,9 +132,9 @@ public class WaterMarkManager {
     }
 
     /**
-     * 同步设置全部水印X轴偏移量
+     * 同步设置全部水印X轴偏移量（单位：px）
      *
-     * @param dx X轴偏移量
+     * @param dx X轴偏移量(默认:100px)
      */
     public static void setDx(int dx) {
         assertInitialized();
@@ -164,9 +149,9 @@ public class WaterMarkManager {
     }
 
     /**
-     * 同步设置全部水印Y轴偏移量
+     * 同步设置全部水印Y轴偏移量（单位：px）
      *
-     * @param dy Y轴偏移量
+     * @param dy Y轴偏移量(默认:240px)
      */
     public static void setDy(int dy) {
         assertInitialized();

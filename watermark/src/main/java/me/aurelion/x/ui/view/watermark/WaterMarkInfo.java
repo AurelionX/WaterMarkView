@@ -66,11 +66,11 @@ public class WaterMarkInfo {
     }
 
     void setDx(int dx) {
-        mDx = WaterMarkUtil.dp2px(dx);
+        mDx = dx;
     }
 
     void setDy(int dy) {
-        mDy = WaterMarkUtil.dp2px(dy);
+        mDy = dy;
     }
 
     public static Builder create() {
@@ -88,10 +88,10 @@ public class WaterMarkInfo {
         private Builder() {
             mDegrees = -30;
             mTextColor = Color.parseColor("#33000000");
-            mTextSize = WaterMarkUtil.dp2px(20);
+            mTextSize = 42;
             mTextBold = false;
-            mDx = WaterMarkUtil.dp2px(50);
-            mDy = WaterMarkUtil.dp2px(120);
+            mDx = 100;
+            mDy = 240;
         }
 
         /**
@@ -117,46 +117,46 @@ public class WaterMarkInfo {
         }
 
         /**
-         * 设置水印文字大小（单位：dp）
+         * 设置水印文字大小（单位：px）
          *
-         * @param textSize 文字大小(默认:20dp)
+         * @param textSize 文字大小(默认:42px)
          * @return Builder
          */
         public Builder setTextSize(int textSize) {
-            mTextSize = WaterMarkUtil.dp2px(textSize);
+            mTextSize = textSize;
             return this;
         }
 
         /**
          * 设置水印文字是否加粗
          *
-         * @param textBold 文字加粗(默认:不加粗)
+         * @param textBold 文字加粗(默认:false)
          * @return Builder
          */
-        public Builder setBold(boolean textBold) {
+        public Builder setTextBold(boolean textBold) {
             mTextBold = textBold;
             return this;
         }
 
         /**
-         * 设置水印文字X轴间距（单位：dp）
+         * 设置水印文字X轴间距（单位：px）
          *
-         * @param dx 文字X轴间距(默认:50dp)
+         * @param dx 文字X轴间距(默认:100px)
          * @return Builder
          */
         public Builder setDx(int dx) {
-            mDx = WaterMarkUtil.dp2px(dx);
+            mDx = dx;
             return this;
         }
 
         /**
-         * 设置水印文字Y轴间距（单位：dp）
+         * 设置水印文字Y轴间距（单位：px）
          *
-         * @param dy 文字Y轴间距(默认:120dp)
+         * @param dy 文字Y轴间距(默认:240px)
          * @return Builder
          */
         public Builder setDy(int dy) {
-            mDy = WaterMarkUtil.dp2px(dy);
+            mDy = dy;
             return this;
         }
 

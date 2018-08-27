@@ -43,14 +43,14 @@ public class WaterMarkView extends View {
         mDegrees = typedArray.getInt(R.styleable.WaterMarkView_degree, WaterMarkManager.INFO != null ? WaterMarkManager.INFO.getDegrees() : -30);
         mText = typedArray.getString(R.styleable.WaterMarkView_text);
         mTextColor = typedArray.getColor(R.styleable.WaterMarkView_textColor, WaterMarkManager.INFO != null ? WaterMarkManager.INFO.getTextColor() : Color.parseColor("#33000000"));
-        mTextSize = typedArray.getDimensionPixelSize(R.styleable.WaterMarkView_textSize, WaterMarkManager.INFO != null ? WaterMarkManager.INFO.getTextSize() : WaterMarkUtil.dp2px(20));
+        mTextSize = typedArray.getDimensionPixelSize(R.styleable.WaterMarkView_textSize, WaterMarkManager.INFO != null ? WaterMarkManager.INFO.getTextSize() : 42);
         mTextBold = typedArray.getBoolean(R.styleable.WaterMarkView_textBold, WaterMarkManager.INFO != null && WaterMarkManager.INFO.isTextBold());
-        mDx = typedArray.getDimensionPixelSize(R.styleable.WaterMarkView_dx, WaterMarkManager.INFO != null ? WaterMarkManager.INFO.getDx() : WaterMarkUtil.dp2px(50));
-        mDy = typedArray.getDimensionPixelSize(R.styleable.WaterMarkView_dy, WaterMarkManager.INFO != null ? WaterMarkManager.INFO.getDy() : WaterMarkUtil.dp2px(120));
+        mDx = typedArray.getDimensionPixelSize(R.styleable.WaterMarkView_dx, WaterMarkManager.INFO != null ? WaterMarkManager.INFO.getDx() : 100);
+        mDy = typedArray.getDimensionPixelSize(R.styleable.WaterMarkView_dy, WaterMarkManager.INFO != null ? WaterMarkManager.INFO.getDy() : 240);
         mSync = typedArray.getBoolean(R.styleable.WaterMarkView_sync, true);
         typedArray.recycle();
 
-        setBackgroundColor(Color.parseColor("#00000000"));
+        setBackgroundColor(Color.TRANSPARENT);
         mTextPaint.setAntiAlias(true);
         mTextPaint.setFlags(Paint.ANTI_ALIAS_FLAG);
         mTextPaint.setColor(mTextColor);
@@ -135,7 +135,7 @@ public class WaterMarkView extends View {
     /**
      * 设置水印倾斜角度
      *
-     * @param degrees 倾斜角度
+     * @param degrees 倾斜角度(默认:-30)
      */
     public void setDegrees(int degrees) {
         mDegrees = degrees;
@@ -145,7 +145,7 @@ public class WaterMarkView extends View {
     /**
      * 同步设置水印倾斜角度
      *
-     * @param degrees 倾斜角度
+     * @param degrees 倾斜角度(默认:-30)
      */
     void setSyncDegrees(int degrees) {
         if (mSync) {
@@ -156,7 +156,7 @@ public class WaterMarkView extends View {
     /**
      * 设置水印字体颜色
      *
-     * @param textColor 字体颜色
+     * @param textColor 字体颜色(默认:#33000000)
      */
     public void setTextColor(int textColor) {
         mTextColor = textColor;
@@ -167,7 +167,7 @@ public class WaterMarkView extends View {
     /**
      * 同步设置水印字体颜色
      *
-     * @param textColor 字体颜色
+     * @param textColor 字体颜色(默认:#33000000)
      */
     void setSyncTextColor(int textColor) {
         if (mSync) {
@@ -176,20 +176,20 @@ public class WaterMarkView extends View {
     }
 
     /**
-     * 设置水印字体大小
+     * 设置水印字体大小（单位：px）
      *
-     * @param textSize 字体大小
+     * @param textSize 字体大小(默认:42px)
      */
     public void setTextSize(int textSize) {
-        mTextSize = WaterMarkUtil.dp2px(textSize);
+        mTextSize = textSize;
         mTextPaint.setTextSize(mTextSize);
         postInvalidate();
     }
 
     /**
-     * 同步设置水印字体大小
+     * 同步设置水印字体大小（单位：px）
      *
-     * @param textSize 字体大小
+     * @param textSize 字体大小(默认:42px)
      */
     void setSyncTextSize(int textSize) {
         if (mSync) {
@@ -200,7 +200,7 @@ public class WaterMarkView extends View {
     /**
      * 设置水印字体是否粗体
      *
-     * @param textBold 是否粗体
+     * @param textBold 是否粗体(默认:false)
      */
     public void setTextBold(boolean textBold) {
         mTextBold = textBold;
@@ -211,7 +211,7 @@ public class WaterMarkView extends View {
     /**
      * 同步设置水印字体是否粗体
      *
-     * @param textBold 是否粗体
+     * @param textBold 是否粗体(默认:false)
      */
     void setSyncTextBold(boolean textBold) {
         if (mSync) {
@@ -220,19 +220,19 @@ public class WaterMarkView extends View {
     }
 
     /**
-     * 设置水印X轴偏移量
+     * 设置水印X轴偏移量（单位：px）
      *
-     * @param dx X轴偏移量
+     * @param dx X轴偏移量(默认:100px)
      */
     public void setDx(int dx) {
-        this.mDx = WaterMarkUtil.dp2px(dx);
+        this.mDx = dx;
         postInvalidate();
     }
 
     /**
-     * 同步设置水印X轴偏移量
+     * 同步设置水印X轴偏移量（单位：px）
      *
-     * @param dx X轴偏移量
+     * @param dx X轴偏移量(默认:100px)
      */
     void setSyncDx(int dx) {
         if (mSync) {
@@ -241,19 +241,19 @@ public class WaterMarkView extends View {
     }
 
     /**
-     * 设置水印Y轴偏移量
+     * 设置水印Y轴偏移量（单位：px）
      *
-     * @param dy Y轴偏移量
+     * @param dy Y轴偏移量(默认:240px)
      */
     public void setDy(int dy) {
-        this.mDy = WaterMarkUtil.dp2px(dy);
+        this.mDy = dy;
         postInvalidate();
     }
 
     /**
-     * 同步设置水印Y轴偏移量
+     * 同步设置水印Y轴偏移量（单位：px）
      *
-     * @param dy Y轴偏移量
+     * @param dy Y轴偏移量(默认:240px)
      */
     void setSignDy(int dy) {
         if (mSync) {

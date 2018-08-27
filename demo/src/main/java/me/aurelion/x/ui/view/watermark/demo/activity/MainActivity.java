@@ -7,6 +7,11 @@ import me.aurelion.x.ui.view.watermark.WaterMarkManager;
 import me.aurelion.x.ui.view.watermark.demo.R;
 import me.aurelion.x.ui.view.watermark.demo.base.BaseActivity;
 
+/**
+ * @author Leon (wshk729@163.com)
+ * @date 2018/8/27
+ * <p>
+ */
 public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     @Override
@@ -37,6 +42,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 break;
             case R.id.btn5:
                 NoSyncActivity.start(this);
+                break;
+            default:
                 break;
 
         }
