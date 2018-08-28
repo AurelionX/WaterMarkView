@@ -20,9 +20,9 @@
         app:dx="70dp"
         app:dy="160dp"
         app:sync="false"
-        app:text="就是不改变"
+        app:text="嚯嚯嚯"
         app:textBold="true"
-        app:textColor="#330000FF"
+        app:textColor="#3300FF00"
         app:textSize="36sp"/>
 
 </RelativeLayout>

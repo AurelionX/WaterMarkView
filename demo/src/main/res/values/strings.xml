@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">WaterMarkDemo</string>
 
-    <string name="btn1">切换 - 你瞅啥</string>
-    <string name="btn2">切换 - 瞅你咋地</string>
+    <string name="btn1">切换 - 哈哈哈</string>
+    <string name="btn2">切换 - 嘿嘿嘿</string>
     <string name="btn3">清空内容</string>
     <string name="btn4">打开同步页面</string>
     <string name="btn5">打开非同步页面</string>

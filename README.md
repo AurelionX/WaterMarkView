@@ -22,13 +22,15 @@
     	}
     }
 ```
-2.Add the dependency [![WaterMarkView](https://jitpack.io/v/AurelionX/WaterMarkView.svg)](https://jitpack.io/#AurelionX/WaterMarkView)
+2.Add the dependency
 
 ```groovy
     dependencies {
-    	 api 'com.github.AurelionX:WaterMarkView:0.0.1'
+    	 implementation 'com.github.AurelionX:WaterMarkView:$version'
     }
 ```
+
+The latest version is: [![WaterMarkView](https://jitpack.io/v/AurelionX/WaterMarkView.svg)](https://jitpack.io/#AurelionX/WaterMarkView)
 
 ## 静态加载
 ```xml

@@ -29,10 +29,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn1:
-                WaterMarkManager.setText("你瞅啥");
+                WaterMarkManager.setText("哈哈哈哈哈哈哈");
                 break;
             case R.id.btn2:
-                WaterMarkManager.setText("瞅你咋地");
+                WaterMarkManager.setText("嘿嘿嘿嘿嘿嘿嘿");
                 break;
             case R.id.btn3:
                 WaterMarkManager.setText("");
