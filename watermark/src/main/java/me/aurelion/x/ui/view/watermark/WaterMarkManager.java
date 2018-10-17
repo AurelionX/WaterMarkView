@@ -2,6 +2,7 @@ package me.aurelion.x.ui.view.watermark;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.graphics.Paint;
 import android.view.LayoutInflater;
 
 import java.util.ArrayList;
@@ -15,7 +16,7 @@ import java.util.List;
 public class WaterMarkManager {
 
     static WaterMarkInfo INFO = null;
-    static String CONTENT = "";
+    static String[] CONTENT = null;
     static List<WaterMarkView> LIST = new ArrayList<>();
 
     /**
@@ -51,9 +52,9 @@ public class WaterMarkManager {
      *
      * @param content 文字信息
      */
-    public static void setText(String content) {
+    public static void setText(String... content) {
         assertInitialized();
-        CONTENT = content == null ? "" : content;
+        CONTENT = content;
         if (LIST.size() > 0) {
             for (WaterMarkView view : LIST) {
                 if (view != null) {
@@ -160,6 +161,23 @@ public class WaterMarkManager {
             for (WaterMarkView view : LIST) {
                 if (view != null) {
                     view.setSignDy(dy);
+                }
+            }
+        }
+    }
+
+    /**
+     * 同步设置全部水印对齐方式
+     *
+     * @param align 对齐方式(默认:Center)
+     */
+    public static void setAlign(Paint.Align align) {
+        assertInitialized();
+        INFO.setAlign(align);
+        if (LIST.size() > 0) {
+            for (WaterMarkView view : LIST) {
+                if (view != null) {
+                    view.setSignAlign(align);
                 }
             }
         }

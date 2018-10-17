@@ -5,6 +5,7 @@
 ## 功能实现
 - [x] 静态/动态加载
 - [x] 支持全局同步更新水印内容和样式
+- [x] 支持多行水印显示
 - [x] 支持自定义角度、字体大小、字体颜色、粗体、间距
 
 ## 效果图
@@ -38,11 +39,12 @@ The latest version is: [![WaterMarkView](https://jitpack.io/v/AurelionX/WaterMar
 <me.aurelion.x.ui.view.watermark.WaterMarkView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        app:align="CENTER"                  // 对齐方式
         app:degree="-30"                    // 角度
         app:dx="100px"                      // X间距
         app:dy="240px"                      // Y间距
         app:sync="true"                     // 是否同步（true:响应全局设置，false:独立生效）
-        app:text="XXXXXX"                   // 水印内容（默认为空）
+        app:text="XXX///XXX"                // 水印内容（默认为空，"///"为默认分隔符）
         app:textBold="false"                // 是否粗体
         app:textColor="#3300000"            // 字体颜色
         app:textSize="42px"/>               // 字体大小
@@ -52,13 +54,14 @@ WaterMarkView常用方法
 
 | 方法名 | 含义 | 备注 |
 | :--- | :--- | :--- |
-|setText(String text)|设置水印文字内容||
+|setText(String... text)|设置水印文字内容||
 |setDegrees(int degrees)|设置水印倾斜角度|默认:-30|
 |setTextColor(int textColor)|设置水印字体颜色|默认:#33000000|
 |setTextSize(int textSize)|设置水印字体大小|默认:42px|
 |setTextBold(boolean textBold)|设置水印字体是否粗体|默认:false|
 |setDx(int dx)|设置水印X轴偏移量|默认:100px|
 |setDy(int dy)|设置水印Y轴偏移量|默认:240px|
+|setAlign(Paint.Align align)|设置水印对齐方式|默认:CENTER|
 |onDestroy()|同步更新时，需要在销毁相关页面时调用|重要！！！|
 
 ## 动态加载
@@ -100,6 +103,7 @@ public class App extends Application {
                         .setTextBold(true)
                         .setDx(Utils.dp2px(getApplicationContext(), 60))
                         .setDy(Utils.dp2px(getApplicationContext(), 120))
+                        .setAlign(Paint.Align.CENTER)
                         .generate());
     }
     
@@ -109,7 +113,7 @@ public class App extends Application {
 ### 随时同步更新水印内容和样式
 ```java
     // 修改水印内容
-    WaterMarkManager.setText("XXXXXX");
+    WaterMarkManager.setText("XXXXXX","XXXXXX");
 ```
 
 WaterMarkManager常用**静态**方法
@@ -125,6 +129,7 @@ WaterMarkManager常用**静态**方法
 |setTextBold(boolean textBold)|同步设置全部水印字体是否粗体|默认:false|
 |setDx(int dx)|同步设置全部水印X轴偏移量|默认:100px|
 |setDy(int dy)|同步设置全部水印Y轴偏移量|默认:240px|
+|setAlign(Paint.Align align)|同步设置全部水印对齐方式|默认:CENTER|
 
 ## License
    

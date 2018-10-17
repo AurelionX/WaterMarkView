@@ -1,6 +1,7 @@
 package me.aurelion.x.ui.view.watermark;
 
 import android.graphics.Color;
+import android.graphics.Paint;
 
 /**
  * @author Leon (wshk729@163.com)
@@ -15,14 +16,16 @@ public class WaterMarkInfo {
     private boolean mTextBold;
     private int mDx;
     private int mDy;
+    private Paint.Align mAlign;
 
-    private WaterMarkInfo(int degrees, int textColor, int textSize, boolean textBold, int dx, int dy) {
+    private WaterMarkInfo(int degrees, int textColor, int textSize, boolean textBold, int dx, int dy, Paint.Align align) {
         mDegrees = degrees;
         mTextColor = textColor;
         mTextSize = textSize;
         mTextBold = textBold;
         mDx = dx;
         mDy = dy;
+        mAlign = align;
     }
 
     public int getDegrees() {
@@ -43,6 +46,21 @@ public class WaterMarkInfo {
 
     public int getDy() {
         return mDy;
+    }
+
+    public Paint.Align getAlign() {
+        return mAlign;
+    }
+
+    public int getAlignInt() {
+        switch (mAlign) {
+            case LEFT:
+                return 0;
+            case RIGHT:
+                return 2;
+            default:
+                return 1;
+        }
     }
 
     public boolean isTextBold() {
@@ -73,6 +91,10 @@ public class WaterMarkInfo {
         mDy = dy;
     }
 
+    void setAlign(Paint.Align align) {
+        this.mAlign = align;
+    }
+
     public static Builder create() {
         return new Builder();
     }
@@ -84,6 +106,7 @@ public class WaterMarkInfo {
         private boolean mTextBold;
         private int mDx;
         private int mDy;
+        private Paint.Align mAlign;
 
         private Builder() {
             mDegrees = -30;
@@ -92,6 +115,7 @@ public class WaterMarkInfo {
             mTextBold = false;
             mDx = 100;
             mDy = 240;
+            mAlign = Paint.Align.CENTER;
         }
 
         /**
@@ -161,12 +185,23 @@ public class WaterMarkInfo {
         }
 
         /**
+         * 设置水印文字对齐方式
+         *
+         * @param align 对齐方式(默认:Center)
+         * @return Builder
+         */
+        public Builder setAlign(Paint.Align align) {
+            mAlign = align;
+            return this;
+        }
+
+        /**
          * 生成水印全局配置信息
          *
          * @return 配置信息
          */
         public WaterMarkInfo generate() {
-            return new WaterMarkInfo(mDegrees, mTextColor, mTextSize, mTextBold, mDx, mDy);
+            return new WaterMarkInfo(mDegrees, mTextColor, mTextSize, mTextBold, mDx, mDy, mAlign);
         }
     }
 

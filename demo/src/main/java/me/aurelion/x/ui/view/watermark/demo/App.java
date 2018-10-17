@@ -2,6 +2,7 @@ package me.aurelion.x.ui.view.watermark.demo;
 
 import android.app.Application;
 import android.graphics.Color;
+import android.graphics.Paint;
 
 import me.aurelion.x.ui.view.watermark.WaterMarkInfo;
 import me.aurelion.x.ui.view.watermark.WaterMarkManager;
@@ -24,7 +25,8 @@ public class App extends Application {
                         .setTextBold(true)
                         .setDx(Utils.dp2px(getApplicationContext(), 60))
                         .setDy(Utils.dp2px(getApplicationContext(), 120))
+                        .setAlign(Paint.Align.CENTER)
                         .generate());
-        WaterMarkManager.setText("哈哈哈哈哈哈哈");
+        WaterMarkManager.setText("呵呵呵", "呵呵呵呵", "呵呵呵呵呵");
     }
 }

@@ -9,7 +9,6 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.text.TextPaint;
-import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
@@ -21,15 +20,17 @@ import android.view.View;
  */
 public class WaterMarkView extends View {
 
+    private static final String DEFAULT_SEPARATOR = "///";
     private TextPaint mTextPaint = new TextPaint();
 
-    private String mText;
+    private String[] mText;
     private int mDegrees;
     private int mTextColor;
     private int mTextSize;
     private boolean mTextBold;
     private int mDx;
     private int mDy;
+    private Paint.Align mAlign;
     private boolean mSync;
     private int textWidth, textHeight;
 
@@ -41,12 +42,17 @@ public class WaterMarkView extends View {
         super(context, attrs);
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.WaterMarkView);
         mDegrees = typedArray.getInt(R.styleable.WaterMarkView_degree, WaterMarkManager.INFO != null ? WaterMarkManager.INFO.getDegrees() : -30);
-        mText = typedArray.getString(R.styleable.WaterMarkView_text);
+        String text = typedArray.getString(R.styleable.WaterMarkView_text);
+        if (text != null) {
+            mText = text.split(DEFAULT_SEPARATOR);
+        }
         mTextColor = typedArray.getColor(R.styleable.WaterMarkView_textColor, WaterMarkManager.INFO != null ? WaterMarkManager.INFO.getTextColor() : Color.parseColor("#33000000"));
         mTextSize = typedArray.getDimensionPixelSize(R.styleable.WaterMarkView_textSize, WaterMarkManager.INFO != null ? WaterMarkManager.INFO.getTextSize() : 42);
         mTextBold = typedArray.getBoolean(R.styleable.WaterMarkView_textBold, WaterMarkManager.INFO != null && WaterMarkManager.INFO.isTextBold());
         mDx = typedArray.getDimensionPixelSize(R.styleable.WaterMarkView_dx, WaterMarkManager.INFO != null ? WaterMarkManager.INFO.getDx() : 100);
         mDy = typedArray.getDimensionPixelSize(R.styleable.WaterMarkView_dy, WaterMarkManager.INFO != null ? WaterMarkManager.INFO.getDy() : 240);
+        int align = typedArray.getInt(R.styleable.WaterMarkView_align, WaterMarkManager.INFO != null ? WaterMarkManager.INFO.getAlignInt() : 1);
+        mAlign = align == 0 ? Paint.Align.LEFT : align == 2 ? Paint.Align.RIGHT : Paint.Align.CENTER;
         mSync = typedArray.getBoolean(R.styleable.WaterMarkView_sync, true);
         typedArray.recycle();
 
@@ -56,13 +62,17 @@ public class WaterMarkView extends View {
         mTextPaint.setColor(mTextColor);
         mTextPaint.setTextSize(mTextSize);
         mTextPaint.setTypeface(mTextBold ? Typeface.DEFAULT_BOLD : Typeface.DEFAULT);
+        mTextPaint.setTextAlign(mAlign);
 
-        mText = TextUtils.isEmpty(mText) && mSync ? WaterMarkManager.CONTENT : mText;
-        if (!TextUtils.isEmpty(mText)) {
+        mText = mText == null && mSync ? WaterMarkManager.CONTENT : mText;
+
+        textWidth = 0;
+        textHeight = 0;
+        for (String s : mText) {
             Rect tvRect = new Rect();
-            mTextPaint.getTextBounds(mText, 0, mText.length(), tvRect);
-            textWidth = tvRect.width();
-            textHeight = tvRect.height();
+            mTextPaint.getTextBounds(s, 0, s.length(), tvRect);
+            textWidth = textWidth > tvRect.width() ? textWidth : tvRect.width();
+            textHeight += (tvRect.height() + 10);
         }
 
         if (mSync) {
@@ -79,30 +89,45 @@ public class WaterMarkView extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
-        int measuredWidth = getMeasuredWidth();
-        int measuredHeight = getMeasuredHeight();
+        if (mText.length > 0) {
+            int measuredWidth = getMeasuredWidth();
+            int measuredHeight = getMeasuredHeight();
 
-        if (measuredWidth == 0 || measuredHeight == 0) {
-            return;
-        }
-
-        int canvasLength = measuredWidth > measuredHeight ? measuredWidth : measuredHeight;
-
-        canvas.rotate(mDegrees, measuredWidth / 2, measuredHeight / 2);
-
-        int ylocation = (measuredHeight - canvasLength) / 2;
-
-        while (ylocation < canvasLength - (measuredHeight - canvasLength) / 2) {
-            canvas.save();
-            int xlocation = (measuredWidth - canvasLength) / 2;
-
-            while (xlocation < canvasLength - (measuredWidth - canvasLength) / 2) {
-                canvas.drawText(mText, xlocation, ylocation, mTextPaint);
-                xlocation = xlocation + textWidth + mDx;
+            if (measuredWidth == 0 || measuredHeight == 0) {
+                return;
             }
 
-            ylocation = ylocation + textHeight + mDy;
+            int canvasLength = measuredWidth > measuredHeight ? measuredWidth : measuredHeight;
+
+            canvas.save();
+            canvas.rotate(mDegrees, measuredWidth / 2, measuredHeight / 2);
+
+            canvas.save();
+            int y = 0;
+            boolean odd = true;
+            while (y < canvasLength + textHeight) {
+                int x = odd ? 0 : -(textWidth + mDx) / 2;
+                while (x < canvasLength + textWidth) {
+                    drawTexts(mText, mTextPaint, canvas, x, y);
+                    x = x + textWidth + mDx;
+                }
+                y = y + textHeight + mDy;
+                odd = !odd;
+            }
             canvas.restore();
+        }
+    }
+
+    private void drawTexts(String[] ss, Paint paint, Canvas canvas, int x, int y) {
+        Paint.FontMetrics fontMetrics = paint.getFontMetrics();
+        float top = fontMetrics.top;
+        float bottom = fontMetrics.bottom;
+        int length = ss.length;
+        float total = (length - 1) * (bottom - top) + (fontMetrics.descent - fontMetrics.ascent);
+        float offset = total / 2 - bottom;
+        for (int i = 0; i < length; i++) {
+            float yAxis = -(length - i - 1) * (-top + bottom) + offset;
+            canvas.drawText(ss[i], x, y + yAxis, paint);
         }
     }
 
@@ -111,13 +136,17 @@ public class WaterMarkView extends View {
      *
      * @param text 文字内容
      */
-    public void setText(String text) {
+    public void setText(String... text) {
         mText = text;
 
-        Rect tvRect = new Rect();
-        mTextPaint.getTextBounds(mText, 0, mText.length(), tvRect);
-        textWidth = tvRect.width();
-        textHeight = tvRect.height();
+        textWidth = 0;
+        textHeight = 0;
+        for (String s : mText) {
+            Rect tvRect = new Rect();
+            mTextPaint.getTextBounds(s, 0, s.length(), tvRect);
+            textWidth = textWidth > tvRect.width() ? textWidth : tvRect.width();
+            textHeight += (tvRect.height() + 10);
+        }
         postInvalidate();
     }
 
@@ -126,7 +155,7 @@ public class WaterMarkView extends View {
      *
      * @param text 文字内容
      */
-    void setSyncText(String text) {
+    void setSyncText(String... text) {
         if (mSync) {
             setText(text);
         }
@@ -258,6 +287,27 @@ public class WaterMarkView extends View {
     void setSignDy(int dy) {
         if (mSync) {
             setDy(dy);
+        }
+    }
+
+    /**
+     * 设置水印对齐方式
+     *
+     * @param align 对齐方式(默认:Center)
+     */
+    public void setAlign(Paint.Align align) {
+        this.mAlign = align;
+        postInvalidate();
+    }
+
+    /**
+     * 同步设置水印对齐方式
+     *
+     * @param align 对齐方式(默认:Center)
+     */
+    void setSignAlign(Paint.Align align) {
+        if (mSync) {
+            setAlign(align);
         }
     }
 
