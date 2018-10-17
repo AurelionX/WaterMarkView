@@ -15,14 +15,14 @@
     <me.aurelion.x.ui.view.watermark.WaterMarkView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:align="RIGHT"
-        app:degree="-30"
-        app:dx="50dp"
-        app:dy="50dp"
-        app:sync="false"
-        app:text="呵...呵呵/// ///哈哈哈哈哈"
-        app:textBold="true"
-        app:textColor="#456db5fd"
-        app:textSize="18sp" />
+        app:water_mark_align="RIGHT"
+        app:water_mark_degree="-30"
+        app:water_mark_dx="50dp"
+        app:water_mark_dy="50dp"
+        app:water_mark_sync="false"
+        app:water_mark_text="呵...呵呵/// ///哈哈哈哈哈"
+        app:water_mark_textBold="true"
+        app:water_mark_textColor="#456db5fd"
+        app:water_mark_textSize="18sp" />
 
 </RelativeLayout>

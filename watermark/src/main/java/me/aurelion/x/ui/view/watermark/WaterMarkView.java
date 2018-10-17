@@ -41,19 +41,19 @@ public class WaterMarkView extends View {
     public WaterMarkView(Context context, AttributeSet attrs) {
         super(context, attrs);
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.WaterMarkView);
-        mDegrees = typedArray.getInt(R.styleable.WaterMarkView_degree, WaterMarkManager.INFO != null ? WaterMarkManager.INFO.getDegrees() : -30);
-        String text = typedArray.getString(R.styleable.WaterMarkView_text);
+        mDegrees = typedArray.getInt(R.styleable.WaterMarkView_water_mark_degree, WaterMarkManager.INFO != null ? WaterMarkManager.INFO.getDegrees() : -30);
+        String text = typedArray.getString(R.styleable.WaterMarkView_water_mark_text);
         if (text != null) {
             mText = text.split(DEFAULT_SEPARATOR);
         }
-        mTextColor = typedArray.getColor(R.styleable.WaterMarkView_textColor, WaterMarkManager.INFO != null ? WaterMarkManager.INFO.getTextColor() : Color.parseColor("#33000000"));
-        mTextSize = typedArray.getDimensionPixelSize(R.styleable.WaterMarkView_textSize, WaterMarkManager.INFO != null ? WaterMarkManager.INFO.getTextSize() : 42);
-        mTextBold = typedArray.getBoolean(R.styleable.WaterMarkView_textBold, WaterMarkManager.INFO != null && WaterMarkManager.INFO.isTextBold());
-        mDx = typedArray.getDimensionPixelSize(R.styleable.WaterMarkView_dx, WaterMarkManager.INFO != null ? WaterMarkManager.INFO.getDx() : 100);
-        mDy = typedArray.getDimensionPixelSize(R.styleable.WaterMarkView_dy, WaterMarkManager.INFO != null ? WaterMarkManager.INFO.getDy() : 240);
-        int align = typedArray.getInt(R.styleable.WaterMarkView_align, WaterMarkManager.INFO != null ? WaterMarkManager.INFO.getAlignInt() : 1);
+        mTextColor = typedArray.getColor(R.styleable.WaterMarkView_water_mark_textColor, WaterMarkManager.INFO != null ? WaterMarkManager.INFO.getTextColor() : Color.parseColor("#33000000"));
+        mTextSize = typedArray.getDimensionPixelSize(R.styleable.WaterMarkView_water_mark_textSize, WaterMarkManager.INFO != null ? WaterMarkManager.INFO.getTextSize() : 42);
+        mTextBold = typedArray.getBoolean(R.styleable.WaterMarkView_water_mark_textBold, WaterMarkManager.INFO != null && WaterMarkManager.INFO.isTextBold());
+        mDx = typedArray.getDimensionPixelSize(R.styleable.WaterMarkView_water_mark_dx, WaterMarkManager.INFO != null ? WaterMarkManager.INFO.getDx() : 100);
+        mDy = typedArray.getDimensionPixelSize(R.styleable.WaterMarkView_water_mark_dy, WaterMarkManager.INFO != null ? WaterMarkManager.INFO.getDy() : 240);
+        int align = typedArray.getInt(R.styleable.WaterMarkView_water_mark_align, WaterMarkManager.INFO != null ? WaterMarkManager.INFO.getAlignInt() : 1);
         mAlign = align == 0 ? Paint.Align.LEFT : align == 2 ? Paint.Align.RIGHT : Paint.Align.CENTER;
-        mSync = typedArray.getBoolean(R.styleable.WaterMarkView_sync, true);
+        mSync = typedArray.getBoolean(R.styleable.WaterMarkView_water_mark_sync, true);
         typedArray.recycle();
 
         setBackgroundColor(Color.TRANSPARENT);

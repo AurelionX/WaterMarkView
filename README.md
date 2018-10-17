@@ -39,15 +39,15 @@ The latest version is: [![WaterMarkView](https://jitpack.io/v/AurelionX/WaterMar
 <me.aurelion.x.ui.view.watermark.WaterMarkView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:align="CENTER"                  // 对齐方式
-        app:degree="-30"                    // 角度
-        app:dx="100px"                      // X间距
-        app:dy="240px"                      // Y间距
-        app:sync="true"                     // 是否同步（true:响应全局设置，false:独立生效）
-        app:text="XXX///XXX"                // 水印内容（默认为空，"///"为默认分隔符）
-        app:textBold="false"                // 是否粗体
-        app:textColor="#3300000"            // 字体颜色
-        app:textSize="42px"/>               // 字体大小
+        app:water_mark_align="CENTER"                // 对齐方式
+        app:water_mark_degree="-30"                  // 角度
+        app:water_mark_dx="100px"                    // X间距
+        app:water_mark_dy="240px"                    // Y间距
+        app:water_mark_sync="true"                   // 是否同步（true:响应全局设置，false:独立生效）
+        app:water_mark_text="XXX///XXX"              // 水印内容（默认为空，"///"为默认分隔符）
+        app:water_mark_textBold="false"              // 是否粗体
+        app:water_mark_textColor="#3300000"          // 字体颜色
+        app:water_mark_textSize="42px"/>             // 字体大小
 ```
 
 WaterMarkView常用方法
