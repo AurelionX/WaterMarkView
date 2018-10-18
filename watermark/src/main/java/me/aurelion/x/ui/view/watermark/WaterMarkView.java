@@ -68,11 +68,13 @@ public class WaterMarkView extends View {
 
         textWidth = 0;
         textHeight = 0;
-        for (String s : mText) {
-            Rect tvRect = new Rect();
-            mTextPaint.getTextBounds(s, 0, s.length(), tvRect);
-            textWidth = textWidth > tvRect.width() ? textWidth : tvRect.width();
-            textHeight += (tvRect.height() + 10);
+        if (mText != null && mText.length > 0) {
+            for (String s : mText) {
+                Rect tvRect = new Rect();
+                mTextPaint.getTextBounds(s, 0, s.length(), tvRect);
+                textWidth = textWidth > tvRect.width() ? textWidth : tvRect.width();
+                textHeight += (tvRect.height() + 10);
+            }
         }
 
         if (mSync) {
@@ -89,7 +91,7 @@ public class WaterMarkView extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
-        if (mText.length > 0) {
+        if (mText != null && mText.length > 0) {
             int measuredWidth = getMeasuredWidth();
             int measuredHeight = getMeasuredHeight();
 
@@ -126,8 +128,8 @@ public class WaterMarkView extends View {
         float total = (length - 1) * (bottom - top) + (fontMetrics.descent - fontMetrics.ascent);
         float offset = total / 2 - bottom;
         for (int i = 0; i < length; i++) {
-            float yAxis = -(length - i - 1) * (-top + bottom) + offset;
-            canvas.drawText(ss[i], x, y + yAxis, paint);
+            float yAxis = -(length - i - 1) * (bottom - top) + offset;
+            canvas.drawText(ss[i], x, y + yAxis + 10, paint);
         }
     }
 
@@ -141,11 +143,13 @@ public class WaterMarkView extends View {
 
         textWidth = 0;
         textHeight = 0;
-        for (String s : mText) {
-            Rect tvRect = new Rect();
-            mTextPaint.getTextBounds(s, 0, s.length(), tvRect);
-            textWidth = textWidth > tvRect.width() ? textWidth : tvRect.width();
-            textHeight += (tvRect.height() + 10);
+        if (mText != null && mText.length > 0) {
+            for (String s : mText) {
+                Rect tvRect = new Rect();
+                mTextPaint.getTextBounds(s, 0, s.length(), tvRect);
+                textWidth = textWidth > tvRect.width() ? textWidth : tvRect.width();
+                textHeight += (tvRect.height() + 10);
+            }
         }
         postInvalidate();
     }
